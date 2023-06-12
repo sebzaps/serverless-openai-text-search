@@ -1,0 +1,33 @@
+org: sebastiaanscholten
+app: serverless-openai-text-search
+service: serverless-openai-text-search
+
+frameworkVersion: '3'
+
+functions:
+  test_api:
+    handler: app.testApiFunction
+    events:
+      - http:
+          path: /test
+          method: get
+
+functions:
+  search:
+    handler: app.search
+    events:
+      - http:
+          path: /search
+          method: post
+
+custom:
+  wsgi:
+    app: app.app
+
+provider:
+  name: aws
+  runtime: python3.9
+
+plugins:
+  - serverless-wsgi
+  - serverless-python-requirements
